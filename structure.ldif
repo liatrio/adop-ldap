@@ -49,51 +49,51 @@ objectClass: top
 ou: groups
 
 dn: cn=administrators,ou=groups,dc=adop,dc=accenture,dc=com
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 objectClass: top
 cn: administrators
-member: cn=admin,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
-member: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+member: cn=admin,dc=adop,dc=accenture,dc=com
+member: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 
 dn: cn=confluence-administrators,ou=groups,dc=adop,dc=accenture,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: confluence-administrators
-uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 
 dn: cn=confluence-users,ou=groups,dc=adop,dc=accenture,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: confluence-users
-uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 
 dn: cn=jira-users,ou=groups,dc=adop,dc=accenture,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: jira-users
-uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 
 dn: cn=jira-administrators,ou=groups,dc=adop,dc=accenture,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: jira-administrators
-uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 
 dn: cn=jira-developers,ou=groups,dc=adop,dc=accenture,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: jira-developers
-uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 
 dn: cn=sonar-administrators,ou=groups,dc=adop,dc=accenture,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: sonar-administrators
-uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 
 dn: cn=sonar-users,ou=groups,dc=adop,dc=accenture,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: sonar-users
-uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 
