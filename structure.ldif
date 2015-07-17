@@ -1,0 +1,99 @@
+version: 1
+dn: ou=people,dc=adop,dc=accenture,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: people
+
+dn: cn=gerrit,ou=people,dc=adop,dc=accenture,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: gerrit
+displayName: gerrit
+givenName: gerrit
+mail: gerrit@accenture.com
+sn: gerrit
+uid: gerrit
+userPassword:: Z2Vycml0
+
+dn: cn=jenkins,ou=people,dc=adop,dc=accenture,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: jenkins
+displayName: jenkins
+givenName: jenkins
+mail: jenkins@accenture.com
+sn: jenkins
+uid: jenkins
+userPassword:: amVua2lucw==
+
+dn: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: john.smith
+displayName: John Smith
+givenName: John
+mail: john.smith@example.com
+sn: Smith
+uid: john.smith
+userPassword:: UGFzc3dvcmQwMQ==
+
+dn: ou=groups,dc=adop,dc=accenture,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: groups
+
+dn: cn=administrators,ou=groups,dc=adop,dc=accenture,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: administrators
+member: cn=admin,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+member: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+
+dn: cn=confluence-administrators,ou=groups,dc=adop,dc=accenture,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: confluence-administrators
+uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+
+dn: cn=confluence-users,ou=groups,dc=adop,dc=accenture,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: confluence-users
+uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+
+dn: cn=jira-users,ou=groups,dc=adop,dc=accenture,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: jira-users
+uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+
+dn: cn=jira-administrators,ou=groups,dc=adop,dc=accenture,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: jira-administrators
+uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+
+dn: cn=jira-developers,ou=groups,dc=adop,dc=accenture,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: jira-developers
+uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+
+dn: cn=sonar-administrators,ou=groups,dc=adop,dc=accenture,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: sonar-administrators
+uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+
+dn: cn=sonar-users,ou=groups,dc=adop,dc=accenture,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: sonar-users
+uniqueMember: cn=john.smith,ou=people,dc=accenture.com,dc=monsoon,dc=accenture,dc=com
+
