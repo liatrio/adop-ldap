@@ -52,8 +52,8 @@ dn: cn=administrators,ou=groups,dc=adop,dc=accenture,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: administrators
-member: cn=admin,dc=adop,dc=accenture,dc=com
-member: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
+uniqueMember: cn=admin,dc=adop,dc=accenture,dc=com
+uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 
 dn: cn=confluence-administrators,ou=groups,dc=adop,dc=accenture,dc=com
 objectClass: groupOfUniqueNames
