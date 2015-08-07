@@ -43,6 +43,19 @@ sn: jenkins
 uid: jenkins
 userPassword:: amVua2lucw==
 
+dn: cn=nexus,ou=people,dc=adop,dc=accenture,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: nexus
+displayName: nexus
+givenName: nexus
+mail: nexus@accenture.com
+sn: nexus
+uid: nexus
+userPassword:: bmV4dXMK
+
 dn: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 objectClass: inetOrgPerson
 objectClass: organizationalPerson
@@ -123,6 +136,7 @@ objectClass: groupOfUniqueNames
 objectClass: top
 cn: sonar-users
 uniqueMember: cn=admin,ou=people,dc=adop,dc=accenture,dc=com
+uniqueMember: cn=nexus,ou=people,dc=adop,dc=accenture,dc=com
 uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 
 dn: cn=nx-developer,ou=groups,dc=adop,dc=accenture,dc=com
@@ -130,6 +144,7 @@ objectClass: groupOfUniqueNames
 objectClass: top
 cn: sonar-users
 uniqueMember: cn=admin,ou=people,dc=adop,dc=accenture,dc=com
+uniqueMember: cn=nexus,ou=people,dc=adop,dc=accenture,dc=com
 uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 
 dn: cn=nx-deployment,ou=groups,dc=adop,dc=accenture,dc=com
@@ -137,4 +152,5 @@ objectClass: groupOfUniqueNames
 objectClass: top
 cn: sonar-users
 uniqueMember: cn=admin,ou=people,dc=adop,dc=accenture,dc=com
+uniqueMember: cn=nexus,ou=people,dc=adop,dc=accenture,dc=com
 uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
