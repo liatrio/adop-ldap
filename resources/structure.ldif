@@ -25,7 +25,7 @@ objectClass: top
 cn: gerrit
 displayName: gerrit
 givenName: gerrit
-mail: gerrit@accenture.com
+mail: gerrit@adop.accenture.com
 sn: gerrit
 uid: gerrit
 userPassword:: Z2Vycml0
@@ -38,7 +38,7 @@ objectClass: top
 cn: jenkins
 displayName: jenkins
 givenName: jenkins
-mail: jenkins@accenture.com
+mail: jenkins@adop.accenture.com
 sn: jenkins
 uid: jenkins
 userPassword:: amVua2lucw==
@@ -51,7 +51,7 @@ objectClass: top
 cn: nexus
 displayName: nexus
 givenName: nexus
-mail: nexus@accenture.com
+mail: nexus@adop.accenture.com
 sn: nexus
 uid: nexus
 userPassword:: bmV4dXMK
