@@ -54,7 +54,7 @@ givenName: nexus
 mail: nexus@adop.accenture.com
 sn: nexus
 uid: nexus
-userPassword:: bmV4dXMK
+userPassword:: UGFzc3dvcmQwMQ==
 
 dn: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 objectClass: inetOrgPerson
