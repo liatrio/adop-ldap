@@ -47,4 +47,4 @@ do
 done
 
 echo "LDAP available, adding data"
-ldapadd -H "ldap://${ldap_host}" -x -D "${ldap_userdn}" -f "${ldap_file}" -w "${ldap_password}"
+ldapadd -H "ldap://${ldap_host}" -c -x -D "${ldap_userdn}" -f "${ldap_file}" -w "${ldap_password}"
