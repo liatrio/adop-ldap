@@ -9,6 +9,7 @@ usage() {
 }
 
 sleep_time=5
+MAX_RETRY=10
 
 while getopts "h:u:p:b:f:" opt; do
   case $opt in
@@ -39,12 +40,21 @@ if [ -z "${ldap_host}" ] || [ -z "${ldap_userdn}" ] || [ -z "${ldap_password}" ]
     usage
 fi
 
-echo "Testing LDAP Connection"
-until ldapsearch -x -LLL -H "ldap://${ldap_host}" -x -D "${ldap_userdn}" -w "${ldap_password}" -b "${ldap_base}" &> /dev/null
+echo -e "\n********** Testing LDAP Connection"
+until ldapsearch -x -LLL -H "ldap://${ldap_host}" -x -D "${ldap_userdn}" -w "${ldap_password}" -b "${ldap_base}"
 do
-    echo "LDAP unavailable, sleeping for ${sleep_time}"
+    echo -e "\n******************** LDAP unavailable, sleeping for ${sleep_time}"
     sleep "${sleep_time}"
 done
 
-echo "LDAP available, adding data"
-ldapadd -H "ldap://${ldap_host}" -c -x -D "${ldap_userdn}" -f "${ldap_file}" -w "${ldap_password}"
+echo -e "\n********** LDAP available, adding data"
+count=1
+until [ $count -ge ${MAX_RETRY} ]
+do
+  ldapadd -H "ldap://${ldap_host}" -c -x -D "${ldap_userdn}" -f "${ldap_file}" -w "${ldap_password}" > /dev/null 2>&1
+  status=$?
+  [[ ${status} -eq 0  ]] && break
+  count=$[$count+1]
+  echo -e "\n******************** Error ${status} adding custom configuration, retry ... ${count}\n"
+  sleep "${sleep_time}"
+done
