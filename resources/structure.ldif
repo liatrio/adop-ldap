@@ -135,7 +135,7 @@ uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 dn: cn=nx-admin,ou=groups,dc=adop,dc=accenture,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
-cn: sonar-users
+cn: nx-admin
 uniqueMember: cn=admin,ou=people,dc=adop,dc=accenture,dc=com
 uniqueMember: cn=nexus,ou=people,dc=adop,dc=accenture,dc=com
 uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
@@ -143,7 +143,7 @@ uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 dn: cn=nx-developer,ou=groups,dc=adop,dc=accenture,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
-cn: sonar-users
+cn: nx-developer
 uniqueMember: cn=admin,ou=people,dc=adop,dc=accenture,dc=com
 uniqueMember: cn=nexus,ou=people,dc=adop,dc=accenture,dc=com
 uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
@@ -151,7 +151,7 @@ uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
 dn: cn=nx-deployment,ou=groups,dc=adop,dc=accenture,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
-cn: sonar-users
+cn: nx-deployment
 uniqueMember: cn=admin,ou=people,dc=adop,dc=accenture,dc=com
 uniqueMember: cn=nexus,ou=people,dc=adop,dc=accenture,dc=com
 uniqueMember: cn=john.smith,ou=people,dc=adop,dc=accenture,dc=com
