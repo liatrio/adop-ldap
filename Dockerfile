@@ -1,24 +1,35 @@
-FROM osixia/openldap:0.10.2
+FROM dinkel/openldap:2.4.40
 
-MAINTAINER Nick Griffin, <nicholas.griffin>
+MAINTAINER Darren Jackson, <darren.a.jackson>
 
 # Replicate all default environment variables from the base image and customize the needed one's. 
 # This is to be able to use a custom entrypoint and perform all needed settings
 
-ENV LDAP_ORGANISATION ADOP
-ENV LDAP_DOMAIN adop.accenture.com
-ENV LDAP_ADMIN_PASSWORD Sw4syJSWQRx2AK6KE3vbhpmL
-
-# Cusatom environment variable
-
-ENV LDAP_FULL_DOMAIN "dc=adop,dc=accenture,dc=com"
+ENV SLAPD_PASSWORD Jpk66g63ZifGYIcShSGM
+ENV SLAPD_DOMAIN ldap.example.com
+ENV SLAPD_FULL_DOMAIN "dc=ldap,dc=example,dc=com"
 
 # End environment variable definition
 
 # Copy in configuration files
-COPY resources/structure.ldif /tmp/
-COPY resources/load_ldif.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/*
+COPY resources/ldap_init.sh /usr/local/bin/
+RUN chmod u+x /usr/local/bin/ldap_init.sh
 
-ADD ./resources/ldap_init.sh /etc/my_init.d/
-RUN chmod +x /etc/my_init.d/ldap_init.sh
+COPY resources/load_ldif.sh /usr/local/bin/
+RUN chmod u+x /usr/local/bin/load_ldif.sh
+
+COPY resources/structure.ldif /tmp/
+
+COPY resources/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod u+x /usr/local/bin/entrypoint.sh
+
+# Install ldap utility commands
+RUN cp -a /etc/ldap.dist/* /etc/ldap && \
+apt-get update && \
+DEBIAN_FRONTEND=noninteractive apt-get install -y ldap-utils && \
+apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Override entry point
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["slapd", "-d", "32768", "-u", "openldap", "-g", "openldap"]
+
