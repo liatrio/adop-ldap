@@ -1,15 +1,15 @@
 #Supported tags and respective Dockerfile links
 
-- [`0.0.11`, `0.0.11` (*0.0.11/Dockerfile*)](https://github.com/Accenture/adop-ldap/blob/master/Dockerfile.md)
+- [`0.1.0`, `0.1.0` (*0.1.0/Dockerfile*)](https://github.com/Accenture/adop-ldap/blob/master/Dockerfile.md)
 
-# What is docker-ldap?
+# What is adop-ldap?
 
-docker-ldap is a wrapper for the dinkel/openldap image. It has primarily been built to perform extended configuration.
+adop-ldap is a wrapper for the dinkel/openldap image. It has primarily been built to perform extended configuration.
 OpenLDAP Software is an open source implementation of the Lightweight Directory Access Protocol.
 
 # How to use this image
 
-The easiest for to run docker-ldap image is as follow:
+The easiest way to run adop-ldap image is as follow:
 ```
 docker run --name <your-container-name> -d -p 389:389 docker.accenture.com/adop/docker-ldap:VERSION
 ```

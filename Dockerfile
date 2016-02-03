@@ -32,4 +32,3 @@ apt-get clean && rm -rf /var/lib/apt/lists/*
 # Override entry point
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["slapd", "-d", "32768", "-u", "openldap", "-g", "openldap"]
-

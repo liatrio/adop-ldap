@@ -1,4 +1,7 @@
 #!/bin/bash
+# Copyright (c) 2016, Accenture All rights reserved.
+# 2016/02/01 - Added run script to load configuration into ldap
+# Source: https://github.com/dinkel/docker-openldap/blob/master/entrypoint.sh
 
 # When not limiting the open file descritors limit, the memory consumption of
 # slapd is absurdly high. See https://github.com/docker/docker/issues/8231
