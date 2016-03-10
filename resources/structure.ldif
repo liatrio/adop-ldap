@@ -4,19 +4,6 @@ objectClass: organizationalUnit
 objectClass: top
 ou: people
 
-dn: cn=admin,ou=people,${SLAPD_FULL_DOMAIN}
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
-objectClass: person
-objectClass: top
-cn: admin
-displayName: Administrator
-givenName: Admin
-mail: john.smith@${SLAPD_DOMAIN}
-sn: Admin
-uid: admin
-userPassword:: UGFzc3dvcmQwMQ==
-
 dn: cn=gerrit,ou=people,${SLAPD_FULL_DOMAIN}
 objectClass: inetOrgPerson
 objectClass: organizationalPerson
@@ -28,7 +15,7 @@ givenName: gerrit
 mail: gerrit@${SLAPD_DOMAIN}
 sn: gerrit
 uid: gerrit
-userPassword:: Z2Vycml0
+userPassword:: ${GERRIT_PASSWORD}
 
 dn: cn=jenkins,ou=people,${SLAPD_FULL_DOMAIN}
 objectClass: inetOrgPerson
@@ -41,7 +28,7 @@ givenName: jenkins
 mail: jenkins@${SLAPD_DOMAIN}
 sn: jenkins
 uid: jenkins
-userPassword:: amVua2lucw==
+userPassword:: ${JENKINS_PASSWORD}
 
 dn: cn=nexus,ou=people,${SLAPD_FULL_DOMAIN}
 objectClass: inetOrgPerson
@@ -54,20 +41,20 @@ givenName: nexus
 mail: nexus@${SLAPD_DOMAIN}
 sn: nexus
 uid: nexus
-userPassword:: UGFzc3dvcmQwMQ==
+userPassword:: ${INITIAL_ADMIN_PASSWORD}
 
-dn: cn=john.smith,ou=people,${SLAPD_FULL_DOMAIN}
+dn: cn=${INITIAL_ADMIN_USER},ou=people,${SLAPD_FULL_DOMAIN}
 objectClass: inetOrgPerson
 objectClass: organizationalPerson
 objectClass: person
 objectClass: top
-cn: john.smith
-displayName: John Smith
-givenName: John
-mail: john.smith@${SLAPD_DOMAIN}
-sn: Smith
-uid: john.smith
-userPassword:: UGFzc3dvcmQwMQ==
+cn: ${INITIAL_ADMIN_USER}
+displayName: Admin User
+givenName: Admin
+mail: ${INITIAL_ADMIN_USER}@${SLAPD_DOMAIN}
+sn: User
+uid: ${INITIAL_ADMIN_USER}
+userPassword:: ${INITIAL_ADMIN_PASSWORD}
 
 dn: ou=groups,${SLAPD_FULL_DOMAIN}
 objectClass: organizationalUnit
@@ -78,45 +65,39 @@ dn: cn=administrators,ou=groups,${SLAPD_FULL_DOMAIN}
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: administrators
-uniqueMember: cn=admin,${SLAPD_FULL_DOMAIN}
 uniqueMember: cn=admin,ou=people,${SLAPD_FULL_DOMAIN}
 uniqueMember: cn=jenkins,ou=people,${SLAPD_FULL_DOMAIN}
-uniqueMember: cn=john.smith,ou=people,${SLAPD_FULL_DOMAIN}
+uniqueMember: cn=${INITIAL_ADMIN_USER},ou=people,${SLAPD_FULL_DOMAIN}
 
 dn: cn=sonar-administrators,ou=groups,${SLAPD_FULL_DOMAIN}
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: sonar-administrators
-uniqueMember: cn=admin,ou=people,${SLAPD_FULL_DOMAIN}
-uniqueMember: cn=john.smith,ou=people,${SLAPD_FULL_DOMAIN}
+uniqueMember: cn=${INITIAL_ADMIN_USER},ou=people,${SLAPD_FULL_DOMAIN}
 
 dn: cn=sonar-users,ou=groups,${SLAPD_FULL_DOMAIN}
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: sonar-users
-uniqueMember: cn=admin,ou=people,${SLAPD_FULL_DOMAIN}
-uniqueMember: cn=john.smith,ou=people,${SLAPD_FULL_DOMAIN}
+uniqueMember: cn=${INITIAL_ADMIN_USER},ou=people,${SLAPD_FULL_DOMAIN}
 
 dn: cn=nx-admin,ou=groups,${SLAPD_FULL_DOMAIN}
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: nx-admin
-uniqueMember: cn=admin,ou=people,${SLAPD_FULL_DOMAIN}
 uniqueMember: cn=nexus,ou=people,${SLAPD_FULL_DOMAIN}
-uniqueMember: cn=john.smith,ou=people,${SLAPD_FULL_DOMAIN}
+uniqueMember: cn=${INITIAL_ADMIN_USER},ou=people,${SLAPD_FULL_DOMAIN}
 
 dn: cn=nx-developer,ou=groups,${SLAPD_FULL_DOMAIN}
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: nx-developer
-uniqueMember: cn=admin,ou=people,${SLAPD_FULL_DOMAIN}
 uniqueMember: cn=nexus,ou=people,${SLAPD_FULL_DOMAIN}
-uniqueMember: cn=john.smith,ou=people,${SLAPD_FULL_DOMAIN}
+uniqueMember: cn=${INITIAL_ADMIN_USER},ou=people,${SLAPD_FULL_DOMAIN}
 
 dn: cn=nx-deployment,ou=groups,${SLAPD_FULL_DOMAIN}
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: nx-deployment
-uniqueMember: cn=admin,ou=people,${SLAPD_FULL_DOMAIN}
 uniqueMember: cn=nexus,ou=people,${SLAPD_FULL_DOMAIN}
-uniqueMember: cn=john.smith,ou=people,${SLAPD_FULL_DOMAIN}
+uniqueMember: cn=${INITIAL_ADMIN_USER},ou=people,${SLAPD_FULL_DOMAIN}
