@@ -14,11 +14,13 @@ The easiest way to run adop-ldap image is as follow:
 docker run --name <your-container-name> -d -p 389:389 docker.accenture.com/adop/docker-ldap:VERSION
 ```
 
-Runtime configuration can be provided unsing environment variables:
+Runtime configuration can be provided using environment variables:
 
-* SLAPD_PASSWORD, the LDAP admin password. Deafult to Jpk66g63ZifGYIcShSGM
+* SLAPD_PASSWORD, the LDAP admin password. Default to Jpk66g63ZifGYIcShSGM
 * SLAPD_DOMAIN, the LDAP domain. Default to ldap.example.com
 * SLAPD_FULL_DOMAIN, the LDAP BASE_DN. Default to dc=ldap,dc=example,dc=com
+* INITIAL_ADMIN_USER, the initial LDAP user name with administrator rights
+* INITIAL_ADMIN_PASSWORD, the password for the initial administrator user
 
 # License
 Please view [licence information](LICENCE.md) for the software contained on this image.

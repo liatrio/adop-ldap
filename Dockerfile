@@ -5,6 +5,8 @@ MAINTAINER Darren Jackson, <darren.a.jackson>
 # Replicate all default environment variables from the base image and customize the needed one's. 
 # This is to be able to use a custom entrypoint and perform all needed settings
 
+ENV INITIAL_ADMIN_USER admin.user
+ENV INITIAL_ADMIN_PASSWORD="" GERRIT_PASSWORD="" JENKINS_PASSWORD=""
 ENV SLAPD_PASSWORD Jpk66g63ZifGYIcShSGM
 ENV SLAPD_DOMAIN ldap.example.com
 ENV SLAPD_FULL_DOMAIN "dc=ldap,dc=example,dc=com"
