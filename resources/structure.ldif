@@ -65,7 +65,6 @@ dn: cn=administrators,ou=groups,${SLAPD_FULL_DOMAIN}
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: administrators
-uniqueMember: cn=admin,ou=people,${SLAPD_FULL_DOMAIN}
 uniqueMember: cn=jenkins,ou=people,${SLAPD_FULL_DOMAIN}
 uniqueMember: cn=${INITIAL_ADMIN_USER},ou=people,${SLAPD_FULL_DOMAIN}
 
