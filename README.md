@@ -11,7 +11,7 @@ OpenLDAP Software is an open source implementation of the Lightweight Directory 
 
 The easiest way to run adop-ldap image is as follow:
 ```
-docker run --name <your-container-name> -d -p 389:389 docker.accenture.com/adop/docker-ldap:VERSION
+docker run --name <your-container-name> -d -p 389:389 accenture/adop-ldap:VERSION
 ```
 
 Runtime configuration can be provided using environment variables:
