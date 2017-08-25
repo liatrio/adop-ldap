@@ -2,7 +2,6 @@
 
 pipeline {
     agent none
-
     stages {
         stage('pipeline-init') {
             agent any 
@@ -20,6 +19,32 @@ pipeline {
                 }
             }
         }
+        stage('ldop-ldap-validate') {
+            agent any
+            steps {
+                sh "git fetch"
+                sh "echo \$(git tag -l | sort -V | tail -1) > result"
+                script {
+                    TAG = readFile('result').trim()
+                  
+                    CHANGED = "NO"
+                  
+                    if (!(TAG ==~ /^[0-9]+\.[0-9]+\.[0-9]+$/)) {
+                        error("Invalid Git tag format! Aborting...")
+                    }
+
+                    if (doesVersionExist('liatrio', 'ldop-ldap', TAG)) {
+                        error("LDOP LDAP version already exists! Aborting...")
+                    }
+                }
+            }
+            post {
+                success { script { STATUS = "SUCCESS" } }
+                failure { script { STATUS = "FAILURE" } }
+                changed { script { CHANGED = "YES" } }
+                always { script { SUBJECT = "Build #${env.BUILD_NUMBER} of ${env.JOB_NAME} at 'ldop-ldap-validate'" } }
+            }
+        }
         stage('hadolint-lint') {
             agent {
                 docker {
@@ -32,15 +57,9 @@ pipeline {
                 sh 'hadolint Dockerfile || true'
             }       
             post {
-                success {
-                    script { STATUS = "SUCCESS" }
-                }
-                failure {
-                    script { STATUS = "FAILURE" }
-                }
-                changed {
-                    script { CHANGED = "YES" }
-                }
+                success { script { STATUS = "SUCCESS" } }
+                failure { script { STATUS = "FAILURE" } }
+                changed { script { CHANGED = "YES" } }
                 always { script { SUBJECT = "Build #${env.BUILD_NUMBER} of ${env.JOB_NAME} at 'hadolint-lint'" } }
             }
         }
@@ -55,15 +74,9 @@ pipeline {
                 sh 'dockerlint -f Dockerfile || true'
             }
             post {
-                success {
-                    script { STATUS = "SUCCESS" }
-                }
-                failure {
-                    script { STATUS = "FAILURE" }
-                }
-                changed {
-                    script { CHANGED = "YES" }
-                }
+                success { script { STATUS = "SUCCESS" } }
+                failure { script { STATUS = "FAILURE" } }
+                changed { script { CHANGED = "YES" } }
                 always { script { SUBJECT = "Build #${env.BUILD_NUMBER} of ${env.JOB_NAME} at 'dockerlint-lint'" } }
             }
         }
@@ -79,66 +92,25 @@ pipeline {
                 sh 'dockerfile_lint -f Dockerfile || true'
             }
             post {
-                success {
-                    script { STATUS = "SUCCESS" }
-                }
-                failure {
-                    script { STATUS = "FAILURE" }
-                }
-                changed {
-                    script { CHANGED = "YES" }
-                }
+                success { script { STATUS = "SUCCESS" } }
+                failure { script { STATUS = "FAILURE" } }
+                changed { script { CHANGED = "YES" } }
                 always { script { SUBJECT = "Build #${env.BUILD_NUMBER} of ${env.JOB_NAME} at 'dockerfile-lint'" } }
-            }
-        }
-        stage('ldop-ldap-validate') {
-            agent any
-            steps {
-                sh "git pull origin ${env.BRANCH_NAME}"
-                sh "echo \$(git tag -l | sort -V | tail -1) > result"
-                script {
-                    TAG = readFile 'result'
-                    TAG = TAG.trim()
-                  
-                    if (!(TAG ==~ /^[0-9]+\.[0-9]+\.[0-9]+$/)) {
-                        error("Invalid Git tag format! Aborting...")
-                    }
-
-                    if (doesVersionExist('liatrio', 'ldop-ldap', "${TAG}")) {
-                        error("LDOP LDAP version already exists! Aborting...")
-                    }
-                }
-            }
-            post {
-                success {
-                    script { STATUS = "SUCCESS" }
-                }
-                failure {
-                    script { STATUS = "FAILURE" }
-                }
-                changed {
-                    script { CHANGED = "YES" }
-                }
-                always { script { SUBJECT = "Build #${env.BUILD_NUMBER} of ${env.JOB_NAME} at 'ldop-ldap-validate'" } }
             }
         }
         stage('ldop-ldap-build') {
             agent any
             steps {
                 script { CHANGED = "NO" }
+                sh "printenv"
+                sh "rm -rf test/integration/*"
                 sh "docker build -t liatrio/ldop-ldap:${env.BRANCH_NAME} ."
                 sh "docker push liatrio/ldop-ldap:${env.BRANCH_NAME}"
             }
             post {
-                success {
-                    script { STATUS = "SUCCESS" }
-                }
-                failure {
-                    script { STATUS = "FAILURE" }
-                }
-                changed {
-                    script { CHANGED = "YES" }
-                }
+                success { script { STATUS = "SUCCESS" } }
+                failure { script { STATUS = "FAILURE" } }
+                changed { script { CHANGED = "YES" } }
                 always { script { SUBJECT = "Build #${env.BUILD_NUMBER} of ${env.JOB_NAME} at 'ldop-ldap-build'" } }
             }
         }
@@ -151,29 +123,29 @@ pipeline {
             }
             steps {
                 git branch: 'master', url: 'https://github.com/liatrio/ldop-docker-compose'
-                sh "echo \$(pwd) > result"
-                script {
-                  DIR = readFile 'result'
-                  DIR = DIR.trim()
+                withCredentials([[
+                    $class: "AmazonWebServicesCredentialsBinding",
+                    credentialsId: "Jenkins AWS Creds",
+                    accessKeyVariable: "AWS_ACCESS_KEY_ID",
+                    secretKeyVariable: "AWS_SECRET_ACCESS_KEY"]]) {
+                    sh "echo \$(pwd) > result"
+                    script {
+                        DIR = readFile('result').trim()
+                        CHANGED = "NO"
+                    }
+                    testSuite("ldop-ldap", "${env.BRANCH_NAME}", DIR)
+                    sh "export TF_VAR_branch_name=\"${env.BRANCH_NAME}\""
+                    sh '''sed -i 's/timeout 30m/timeout -t 1800/g' test/integration/run-integration-test.sh &&
+                          bash test/validation/validation.sh &&
+                          cd test/integration/ &&
+                          terraform init &&
+                          bash run-integration-test.sh'''
                 }
-                testSuite("ldop-ldap", "${TAG}", "${DIR}")
-                sh "export TF_VAR_branch_name=\"${env.BRANCH_NAME}\""
-                sh '''sed -i 's/timeout 30m/timeout -t 1800/g' test/integration/run-integration-test.sh &&
-                      bash test/validation/validation.sh &&
-                      cd test/integration/ &&
-                      terraform init &&
-                      bash run-integration-test.sh'''
             }
             post {
-                success {
-                    script { STATUS = "SUCCESS" }
-                }
-                failure {
-                    script { STATUS = "FAILURE" }
-                }
-                changed {
-                    script { CHANGED = "YES" }
-                }
+                success { script { STATUS = "SUCCESS" } }
+                failure { script { STATUS = "FAILURE" } }
+                changed { script { CHANGED = "YES" } }
                 always { script { SUBJECT = "Build #${env.BUILD_NUMBER} of ${env.JOB_NAME} at 'ldop-integration-testing'" } }
             }
         }
@@ -185,17 +157,11 @@ pipeline {
                 sh "docker push liatrio/ldop-ldap:${TAG}"
             }
             post {
-                success {
-                    script { STATUS = "SUCCESS" }
-                }
-                failure {
-                    script { STATUS = "FAILURE" }
-                }
-                changed {
-                    script { CHANGED = "YES" }
-                }
+                success { script { STATUS = "SUCCESS" } }
+                failure { script { STATUS = "FAILURE" } }
+                changed { script { CHANGED = "YES" } }
                 always { script { SUBJECT = "Build #${env.BUILD_NUMBER} of ${env.JOB_NAME} at 'ldop-image-deploy'" } }
-            }
+            }         
         }
     }
     post {
@@ -210,7 +176,7 @@ pipeline {
 
                     RESULT = formatSlackOutput(SUBJECT, env.JOB_URL, currentBuild.changeSets, STATUS)
 
-                    slackSend (color: "#${COLOR}", message: "${RESULT}")
+                    slackSend (channel: "#ldop", color: "#${COLOR}", message: "${RESULT}")
                 }
             }
         }
