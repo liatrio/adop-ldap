@@ -1,8 +1,8 @@
 FROM dinkel/openldap:2.4.40
 
-MAINTAINER Darren Jackson, <darren.a.jackson>
+LABEL version = "0.2.3"
 
-# Replicate all default environment variables from the base image and customize the needed one's. 
+# Replicate all default environment variables from the base image and customize the needed one's.
 # This is to be able to use a custom entrypoint and perform all needed settings
 
 ENV INITIAL_ADMIN_USER admin.user
